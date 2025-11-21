@@ -37,7 +37,7 @@ public class RecommendationService {
             }
         }
         
-        System.out.println("User is interested in categories: " + interestedCategories);
+        // System.out.println("User is interested in categories: " + interestedCategories); // Removed debug print
         List<Course> recommendations = new ArrayList<>();
         for (Course course : allCourses) {
             if (!interactedCourseIds.contains(course.getId()) && interestedCategories.contains(course.getCategory())) {
