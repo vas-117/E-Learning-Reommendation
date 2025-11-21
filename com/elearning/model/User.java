@@ -4,14 +4,16 @@ public class User {
     private int id;
     private String name;
     private String email;
+    private String password; // ✅ New Field
     private String preferences;
 
     public User() {}
 
-    public User(int id, String name, String email, String preferences) {
+    public User(int id, String name, String email, String password, String preferences) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.password = password;
         this.preferences = preferences;
     }
 
@@ -24,10 +26,14 @@ public class User {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
+    // ✅ New Getters and Setters for Password
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+
     public String getPreferences() { return preferences; }
     public void setPreferences(String preferences) { this.preferences = preferences; }
 
     public String toString() {
-        return "User [id=" + id + ", name=" + name + ", email=" + email + ", preferences=" + preferences + "]";
+        return "User [id=" + id + ", name=" + name + ", email=" + email + "]";
     }
 }
