@@ -16,6 +16,7 @@ public class InteractionDAO {
     public InteractionDAO() {
         this.connection = DBConnection.getConnection();
     }
+    
     public List<Interaction> getInteractionsByUserId(int userId) {
         List<Interaction> interactions = new ArrayList<>();
         String sql = "SELECT * FROM interactions WHERE user_id = ?";
@@ -37,7 +38,8 @@ public class InteractionDAO {
         }
         return interactions;
     }
-     public void addInteraction(int userId, int courseId) {
+
+    public void addInteraction(int userId, int courseId) {
         String sql = "INSERT INTO interactions (user_id, course_id, interaction_type) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, userId);
@@ -47,5 +49,20 @@ public class InteractionDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    // ✅ NEW METHOD: Check if a user is already enrolled in a course
+    public boolean isEnrolled(int userId, int courseId) {
+        String sql = "SELECT 1 FROM interactions WHERE user_id = ? AND course_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            statement.setInt(2, courseId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSet.next(); // Returns true if a record is found
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
